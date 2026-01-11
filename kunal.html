@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chitransh Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Fira Code', monospace;
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+                url("https://images.unsplash.com/photo-1555066931-4365d14bab8c");
+            background-size: cover;
+            background-position: center;
+            color: #e5e7eb;
+            animation: fadeIn 1.5s ease;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        body.dark {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), #0f172a;
+            color: #38bdf8;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #38bdf8;
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            opacity: 0.15;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        header h1 {
+            font-size: 40px;
+            letter-spacing: 2px;
+            animation: slideDown 1s ease;
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 18px;
+            color: #93c5fd;
+        }
+
+        #typing {
+            color: #38bdf8;
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+            min-height: 22px;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            max-width: 900px;
+            margin: 35px auto;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s;
+            animation: fadeUp 1s ease;
+        }
+
+        section:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 60px rgba(56, 189, 248, 0.25);
+        }
+
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 18px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        p,
+        li {
+            line-height: 1.7;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills li {
+            display: inline-block;
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            padding: 10px 16px;
+            margin: 6px;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skills li:hover {
+            transform: scale(1.15) rotate(-2deg);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
+        }
+
+        /* ===== ITEMS ===== */
+        .item {
+            margin-bottom: 18px;
+            padding-left: 12px;
+            border-left: 3px solid #38bdf8;
+            transition: padding-left 0.3s ease;
+        }
+
+        .item:hover {
+            padding-left: 20px;
+        }
+
+        /* ===== LINKS ===== */
+        .links a {
+            display: inline-block;
+            margin: 10px 15px 0 0;
+            text-decoration: none;
+            color: #38bdf8;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .links a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #38bdf8;
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+
+        .links a:hover {
+            color: white;
+        }
+
+        .links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            color: #94a3b8;
+            margin-top: 50px;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(20px);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 30px;
+            }
+
+            section {
+                margin: 20px;
+            }
+        }
+
+        /* ===== DARK MODE BUTTON ===== */
+        #modeToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #38bdf8;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="modeToggle">🌙</button>
+
+    <header>
+        <h1>Chitransh Phalkey</h1>
+        <p id="typing"></p>
+    </header>
+
+    <section>
+        <h2>Basic Information</h2>
+        <p><strong>Email:</strong> chitranshphalkey@email.com</p>
+        <p><strong>Phone:</strong> +91 7972415445 </p>
+        <p><strong>Location:</strong> City:Warud, Country:India</p>
+    </section>
+
+    <section>
+        <h2>Career Objective</h2>
+        <p>
+            Motivated and detail-oriented college student seeking opportunities to apply
+            programming and problem-solving skills in a professional environment while
+            continuously learning and growing as a software developer.
+        </p>
+    </section>
+
+    <section class="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>HTML & CSS</li>
+            <li>JavaScript (Basics)</li>
+            <li>Python </li>
+            <li>Git & GitHub</li>
+            <li>Problem Solving</li>
+            <li>DSA Concepts</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <div class="item">
+            <p><strong> Education (Nursery – 10th)</strong></p>
+            <p>New Orange City Convent School, Warud, District Amravati</p>
+        </div>
+        <div class="item">
+            <p><strong>Higher Secondary Education (11th – 12th)</strong></p>
+            <p>Decent Junior College, Nagpur</p>
+        </div>
+        <div class="item">
+            <p><strong>JEE</strong></p>
+            <p>ALLEN CAREER INSTITUTE</p>
+        </div>
+        <div class="item">
+            <p><strong>Bachelor of Technology – Computer Science</strong></p>
+            <p>Symbiosis institute of technology International University,Nagpur</p>
+            <p>2025 – 2029</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <div class="item">
+            <p><strong>Student Portfolio Website</strong></p>
+            <p>Designed a responsive portfolio using HTML and CSS.</p>
+        </div>
+        <div class="item">
+            <p><strong>Calculator</strong></p>
+            <p>Made using HTML, CSS, and basic JavaScript</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+        <div class="item">
+            <p><strong>FRONT END DEVELOPER</strong></p>
+            <p>Worked on basic web development tasks and learned real-world coding practices.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Certifications</h2>
+        <ul>
+            <li>HTML & CSS Certification – Online Platform</li>
+            <li>Python Programming Certificate</li>
+            <li>Udemy course certification</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Achievements</h2>
+        <ul>
+            <li>Participated in College Hackathon</li>
+            <li>Certification in C language</li>
+            <li>Having more knowledge on web development</li>
+            <li>Having certifications in different skills</li>
+        </ul>
+    </section>
+
+    <section class="links">
+        <h2>Profiles</h2>
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/chitransh-p-249049365" target="_blank">LinkedIn</a>
+    </section>
+
+    <footer>
+        <p>© All rights reserved 2026 chitranshphalkey | Student Portfolio</p>
+    </footer>
+
+    <!-- ===== JS ANIMATIONS ===== -->
+    <script>
+        // Typing animation
+        const text = "College Student | Aspiring Software Developer";
+        let i = 0;
+        const typing = document.getElementById("typing");
+        function typeWriter() {
+            if (i < text.length) {
+                typing.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        window.onload = typeWriter;
+
+        // Dark/light mode toggle
+        const toggle = document.getElementById("modeToggle");
+        toggle.onclick = () => {
+            document.body.classList.toggle("dark");
+        };
+    </script>
+
+</body>
+
+</html>
