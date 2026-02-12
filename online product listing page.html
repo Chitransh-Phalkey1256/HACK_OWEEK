@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickMart - Premium Accessories Store</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #f1f3f6;
+        scroll-behavior: smooth;
+      }
+
+      /* Navbar */
+      header {
+        background: #111;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      header h2 {
+        color: #ff5722;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #ff5722;
+      }
+
+      nav button {
+        padding: 6px 15px;
+        border: none;
+        background: #ff5722;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      nav button:hover {
+        background: #ff9800;
+        transform: scale(1.05);
+      }
+
+      /* Hero */
+      .hero {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(135deg, #ff5722, #ff9800);
+        color: white;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .hero button {
+        margin-top: 25px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        background: white;
+        color: #ff5722;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .hero button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Products */
+      .products-section {
+        padding: 60px 40px;
+        text-align: center;
+      }
+
+      .products-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+      }
+
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: 0.4s;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .card img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .card p {
+        color: #ff5722;
+        font-weight: bold;
+      }
+
+      .card button {
+        margin-top: 10px;
+        padding: 8px 18px;
+        border: none;
+        background: #ff5722;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h2>QuickMart</h2>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+        <button>Cart 🛒 (<span id="cart-count">0</span>)</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Premium Mobile & Laptop Accessories</h1>
+      <button onclick="scrollToProducts()">Shop Now</button>
+    </section>
+
+    <section id="products" class="products-section">
+      <h2>Our Accessories</h2>
+      <div class="products-container" id="product-list"></div>
+    </section>
+
+    <section
+      id="contact"
+      style="background: #111; color: white; padding: 60px; text-align: center"
+    >
+      <h2>Contact Us</h2>
+      <p>Email: support@quickmart.com</p>
+      <p>Phone: +91 9876543210</p>
+    </section>
+
+    <script>
+      const products = [
+        {
+          name: "Wireless Mouse",
+          price: 499,
+          image:
+            "https://tse4.mm.bing.net/th/id/OIP.w3_qntIq7AIuia74zq9figHaHa?pid=Api&P=0&h=180",
+        },
+        {
+          name: "Gaming Keyboard",
+          price: 1299,
+          image: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef",
+        },
+        {
+          name: "Bluetooth Earbuds",
+          price: 1499,
+          image:
+            "https://tse3.mm.bing.net/th/id/OIP.u8Fb4RQOawxP73bSBVReEgHaGS?pid=Api&P=0&h=180",
+        },
+        {
+          name: "USB Type-C Cable",
+          price: 199,
+          image:
+            "https://tse3.mm.bing.net/th/id/OIP.R7TMlQtFLpiUReQb5QUFYQHaHa?pid=Api&P=0&h=180",
+        },
+        {
+          name: "Laptop Stand",
+          price: 899,
+          image: "https://images.unsplash.com/photo-1593642634443-44adaa06623a",
+        },
+        {
+          name: "Power Bank 20000mAh",
+          price: 1799,
+          image:
+            "https://m.media-amazon.com/images/I/61L-mHU13oL._AC_SL1500_.jpg",
+        },
+        {
+          name: "Gaming Headset",
+          price: 1599,
+          image: "https://images.unsplash.com/photo-1585298723682-7115561c51b7",
+        },
+        {
+          name: "Phone Cover",
+          price: 299,
+          image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+        },
+        {
+          name: "Screen Protector",
+          price: 149,
+          image: "https://images.unsplash.com/photo-1580910051074-3eb694886505",
+        },
+        {
+          name: "Portable SSD",
+          price: 3999,
+          image: "https://images.unsplash.com/photo-1610465299993-e6675c9f9efa",
+        },
+        {
+          name: "Webcam HD",
+          price: 999,
+          image:
+            "https://m.media-amazon.com/images/I/61dAkngibfL._AC_UF1000,1000_QL80_.jpg",
+        },
+        {
+          name: "Smart Watch",
+          price: 2499,
+          image:
+            "https://rukminim2.flixcart.com/image/480/640/xif0q/shopsy-smartwatch/j/j/u/1-99-android-ios-t800-ultra-smart-watch-1-9-48-mm-display-original-imahycxv4apbzrut.jpeg?q=90",
+        },
+      ];
+
+      let cartCount = 0;
+      const productList = document.getElementById("product-list");
+      const cartCounter = document.getElementById("cart-count");
+
+      function displayProducts() {
+        products.forEach((product) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+
+          card.innerHTML = `
+      <img src="${product.image}">
+      <h3>${product.name}</h3>
+      <p>₹${product.price}</p>
+      <button onclick="addToCart()">Add to Cart</button>
+    `;
+
+          productList.appendChild(card);
+        });
+      }
+
+      function addToCart() {
+        cartCount++;
+        cartCounter.innerText = cartCount;
+      }
+
+      function scrollToProducts() {
+        document
+          .getElementById("products")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      displayProducts();
+    </script>
+  </body>
+</html>
