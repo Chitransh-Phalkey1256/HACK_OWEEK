@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WanderWorld Travel Blog</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#f4f4f4;
+  line-height:1.7;
+}
+
+/* Navbar */
+header{
+  background:#111;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header h2{
+  color:#ff5722;
+}
+
+nav a{
+  color:white;
+  margin-left:20px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#ff5722;
+}
+
+/* Pages */
+.page{
+  display:none;
+  padding:40px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.active{
+  display:block;
+}
+
+/* Hero */
+.hero{
+  height:70vh;
+  background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:50px;
+}
+
+/* Blog Cards */
+.blog-container{
+  margin-top:40px;
+}
+
+.blog-card{
+  background:white;
+  margin-bottom:30px;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.blog-card:hover{
+  transform:translateY(-5px);
+}
+
+.blog-card img{
+  width:100%;
+  border-radius:10px;
+}
+
+.blog-card button{
+  margin-top:10px;
+  padding:8px 18px;
+  border:none;
+  background:#ff5722;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.blog-img{
+  width:100%;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+footer{
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>WanderWorld</h2>
+<nav>
+<a onclick="showPage('home')">Home</a>
+<a onclick="showPage('manali')">Manali</a>
+<a onclick="showPage('goa')">Goa</a>
+<a onclick="showPage('jaipur')">Jaipur</a>
+</nav>
+</header>
+
+<!-- HOME PAGE -->
+<section id="home" class="page active">
+
+<div class="hero">
+<h1>Explore The Beauty Of India ✈️</h1>
+</div>
+
+<div class="blog-container">
+
+<div class="blog-card">
+<img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766">
+<h3>Trip To Manali</h3>
+<p>Snow mountains, adventure sports and peaceful valleys.</p>
+<button onclick="showPage('manali')">Read More</button>
+</div>
+
+<div class="blog-card">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<h3>Goa Beach Life</h3>
+<p>Sunsets, beaches and nightlife experience.</p>
+<button onclick="showPage('goa')">Read More</button>
+</div>
+
+<div class="blog-card">
+<img src="https://images.unsplash.com/photo-1603262110263-fb0112e7cc33">
+<h3>Royal Jaipur</h3>
+<p>Explore forts and royal culture of Rajasthan.</p>
+<button onclick="showPage('jaipur')">Read More</button>
+</div>
+
+</div>
+</section>
+
+<!-- MANALI BLOG -->
+<section id="manali" class="page">
+<h1>Beautiful Manali ❄️</h1>
+<img class="blog-img" src="https://images.unsplash.com/photo-1605540436563-5bca919ae766">
+
+<p>
+Manali is one of the most beautiful hill stations in Himachal Pradesh. Surrounded by snow-covered mountains, lush green valleys, and flowing rivers, it is a perfect destination for nature lovers. The cool climate and peaceful environment attract thousands of tourists every year.
+</p>
+
+<p>
+Rohtang Pass is one of the most famous attractions where visitors enjoy snowfall and breathtaking views. Solang Valley is known for adventure activities like paragliding, skiing, and river rafting. Couples and families love visiting Manali for its romantic atmosphere and scenic beauty.
+</p>
+
+<p>
+The local markets of Manali offer woolen clothes, handicrafts, and delicious Himachali food. Overall, Manali is a complete package of adventure, peace, and natural beauty.
+</p>
+</section>
+
+<!-- GOA BLOG -->
+<section id="goa" class="page">
+<h1>Goa Beach Vibes 🌴</h1>
+<img class="blog-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+
+<p>
+Goa is India's most popular beach destination. Known for its golden beaches, vibrant nightlife, and Portuguese heritage, Goa offers a unique blend of relaxation and excitement. Tourists from all over the world visit Goa to enjoy the sea breeze and stunning sunsets.
+</p>
+
+<p>
+Baga Beach, Calangute Beach, and Anjuna Beach are some of the most famous spots. Water sports like jet skiing, parasailing, and banana rides are very popular among adventure lovers. At night, Goa comes alive with music, beach parties, and delicious seafood.
+</p>
+
+<p>
+Apart from beaches, Goa also has beautiful churches like Basilica of Bom Jesus and historic forts like Aguada Fort. Whether you want peace or party vibes, Goa has something for everyone.
+</p>
+</section>
+
+<!-- JAIPUR BLOG -->
+<section id="jaipur" class="page">
+<h1>Royal Jaipur 🏰</h1>
+<img class="blog-img" src="https://images.unsplash.com/photo-1603262110263-fb0112e7cc33">
+
+<p>
+Jaipur, famously known as the Pink City of India, is the capital of Rajasthan. It is a city full of royal palaces, magnificent forts, and rich cultural heritage. The city was painted pink to welcome British royalty, and since then it has been called the Pink City.
+</p>
+
+<p>
+Amber Fort is one of the most stunning forts in India, offering panoramic views of the city. Hawa Mahal, with its unique windows, is an architectural masterpiece. City Palace showcases royal artifacts and traditional Rajasthani architecture.
+</p>
+
+<p>
+Jaipur is also famous for its colorful markets where you can buy traditional jewelry, handicrafts, and textiles. The city represents the true royal lifestyle and culture of Rajasthan. Visiting Jaipur feels like stepping into a royal historical era.
+</p>
+</section>
+
+<footer>
+© 2026 WanderWorld Travel Blog | Travel With Passion ❤️
+</footer>
+
+<script>
+function showPage(pageId){
+document.querySelectorAll(".page").forEach(page=>{
+page.classList.remove("active");
+});
+document.getElementById(pageId).classList.add("active");
+window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
