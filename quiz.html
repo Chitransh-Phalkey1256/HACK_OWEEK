@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Portal</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#667eea,#764ba2);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+background:white;
+width:90%;
+max-width:850px;
+padding:25px;
+border-radius:15px;
+box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.tabs{
+display:flex;
+justify-content:center;
+margin-bottom:20px;
+}
+
+.tabs button{
+padding:10px 20px;
+border:none;
+margin:5px;
+border-radius:25px;
+cursor:pointer;
+font-weight:bold;
+background:#ddd;
+transition:0.3s;
+}
+
+.tabs button.active{
+background:linear-gradient(45deg,#ff512f,#dd2476);
+color:white;
+}
+
+.tabs button:hover{
+transform:scale(1.05);
+}
+
+.quiz{
+display:none;
+animation:fade 0.5s ease-in-out;
+}
+
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+.question{
+margin-bottom:12px;
+}
+
+.submit-btn{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+.submit-btn:hover{
+transform:scale(1.05);
+}
+
+.result{
+margin-top:10px;
+font-weight:bold;
+color:#0072ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1> Quiz</h1>
+
+<div class="tabs">
+<button class="tab active" onclick="openQuiz('physics')">Physics</button>
+<button class="tab" onclick="openQuiz('chemistry')">Chemistry</button>
+<button class="tab" onclick="openQuiz('maths')">Maths</button>
+</div>
+
+<!-- PHYSICS -->
+<div id="physics" class="quiz" style="display:block;">
+<div class="question">1. Unit of Force?
+<br><input type="radio" name="p1" value="0"> Joule
+<br><input type="radio" name="p1" value="1"> Newton
+<br><input type="radio" name="p1" value="0"> Watt
+</div>
+
+<div class="question">2. Speed of light?
+<br><input type="radio" name="p2" value="1"> 3×10^8 m/s
+<br><input type="radio" name="p2" value="0"> 3×10^6 m/s
+<br><input type="radio" name="p2" value="0"> 3×10^5 m/s
+</div>
+
+<div class="question">3. SI unit of Work?
+<br><input type="radio" name="p3" value="1"> Joule
+<br><input type="radio" name="p3" value="0"> Watt
+<br><input type="radio" name="p3" value="0"> Newton
+</div>
+
+<div class="question">4. g value?
+<br><input type="radio" name="p4" value="1"> 9.8 m/s²
+<br><input type="radio" name="p4" value="0"> 98 m/s²
+<br><input type="radio" name="p4" value="0"> 0.98 m/s²
+</div>
+
+<div class="question">5. Formula of Force?
+<br><input type="radio" name="p5" value="1"> F=ma
+<br><input type="radio" name="p5" value="0"> F=mv
+<br><input type="radio" name="p5" value="0"> F=m/a
+</div>
+
+<button class="submit-btn" onclick="calculateScore('p','pResult')">Submit</button>
+<div id="pResult" class="result"></div>
+</div>
+
+<!-- CHEMISTRY -->
+<div id="chemistry" class="quiz">
+
+<div class="question">1. Formula of Water?
+<br><input type="radio" name="c1" value="1"> H2O
+<br><input type="radio" name="c1" value="0"> CO2
+<br><input type="radio" name="c1" value="0"> O2
+</div>
+
+<div class="question">2. Atomic number of Oxygen?
+<br><input type="radio" name="c2" value="1"> 8
+<br><input type="radio" name="c2" value="0"> 6
+<br><input type="radio" name="c2" value="0"> 10
+</div>
+
+<div class="question">3. pH of neutral solution?
+<br><input type="radio" name="c3" value="1"> 7
+<br><input type="radio" name="c3" value="0"> 5
+<br><input type="radio" name="c3" value="0"> 9
+</div>
+
+<div class="question">4. NaCl is?
+<br><input type="radio" name="c4" value="1"> Salt
+<br><input type="radio" name="c4" value="0"> Acid
+<br><input type="radio" name="c4" value="0"> Base
+</div>
+
+<div class="question">5. Symbol of Gold?
+<br><input type="radio" name="c5" value="1"> Au
+<br><input type="radio" name="c5" value="0"> Ag
+<br><input type="radio" name="c5" value="0"> Gd
+</div>
+
+<button class="submit-btn" onclick="calculateScore('c','cResult')">Submit</button>
+<div id="cResult" class="result"></div>
+</div>
+
+<!-- MATHS -->
+<div id="maths" class="quiz">
+
+<div class="question">1. 5+7?
+<br><input type="radio" name="m1" value="1"> 12
+<br><input type="radio" name="m1" value="0"> 10
+<br><input type="radio" name="m1" value="0"> 14
+</div>
+
+<div class="question">2. π value?
+<br><input type="radio" name="m2" value="1"> 3.14
+<br><input type="radio" name="m2" value="0"> 2.14
+<br><input type="radio" name="m2" value="0"> 4.13
+</div>
+
+<div class="question">3. 9×6?
+<br><input type="radio" name="m3" value="1"> 54
+<br><input type="radio" name="m3" value="0"> 45
+<br><input type="radio" name="m3" value="0"> 64
+</div>
+
+<div class="question">4. √81?
+<br><input type="radio" name="m4" value="1"> 9
+<br><input type="radio" name="m4" value="0"> 8
+<br><input type="radio" name="m4" value="0"> 7
+</div>
+
+<div class="question">5. 15÷3?
+<br><input type="radio" name="m5" value="1"> 5
+<br><input type="radio" name="m5" value="0"> 3
+<br><input type="radio" name="m5" value="0"> 6
+</div>
+
+<button class="submit-btn" onclick="calculateScore('m','mResult')">Submit</button>
+<div id="mResult" class="result"></div>
+</div>
+
+</div>
+
+<script>
+function openQuiz(id){
+document.querySelectorAll('.quiz').forEach(q=>q.style.display='none');
+document.getElementById(id).style.display='block';
+
+document.querySelectorAll('.tab').forEach(btn=>btn.classList.remove('active'));
+event.target.classList.add('active');
+}
+
+function calculateScore(prefix,resultId){
+let score=0;
+for(let i=1;i<=5;i++){
+let options=document.getElementsByName(prefix+i);
+for(let j=0;j<options.length;j++){
+if(options[j].checked){
+score+=parseInt(options[j].value);
+}
+}
+}
+document.getElementById(resultId).innerHTML="Your Score: "+score+"/5";
+}
+</script>
+
+</body>
+</html>
