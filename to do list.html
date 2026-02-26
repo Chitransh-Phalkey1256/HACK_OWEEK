@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Daily Task Manager</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+/* Glass Card */
+.container{
+    width:450px;
+    padding:35px;
+    border-radius:20px;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.08);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    color:white;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+/* Input Section */
+.input-section{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+input{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.15);
+    color:white;
+}
+
+input::placeholder{
+    color:#ccc;
+}
+
+button{
+    padding:12px 16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.add-btn{
+    background:#00c6ff;
+    color:white;
+}
+
+.add-btn:hover{
+    background:#0072ff;
+}
+
+/* Task List */
+ul{
+    list-style:none;
+    max-height:300px;
+    overflow-y:auto;
+}
+
+li{
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+li:hover{
+    transform:translateX(5px);
+}
+
+li.completed span{
+    text-decoration:line-through;
+    opacity:0.6;
+}
+
+/* Buttons inside task */
+.task-actions{
+    display:flex;
+    gap:8px;
+}
+
+.complete-btn{
+    background:#00ffab;
+    color:black;
+}
+
+.delete-btn{
+    background:#ff4b5c;
+    color:white;
+}
+
+.complete-btn:hover{
+    opacity:0.8;
+}
+
+.delete-btn:hover{
+    opacity:0.8;
+}
+
+/* Scrollbar */
+ul::-webkit-scrollbar{
+    width:6px;
+}
+ul::-webkit-scrollbar-thumb{
+    background:#00c6ff;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Daily Task Manager</h1>
+
+    <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Enter your task...">
+        <button class="add-btn" onclick="addTask()">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", loadTasks);
+
+function addTask(){
+    const input=document.getElementById("taskInput");
+    const text=input.value.trim();
+
+    if(text==="") return;
+
+    createTask(text,false);
+    saveTasks();
+    input.value="";
+}
+
+function createTask(text,completed){
+    const li=document.createElement("li");
+    if(completed) li.classList.add("completed");
+
+    const span=document.createElement("span");
+    span.textContent=text;
+
+    const actions=document.createElement("div");
+    actions.classList.add("task-actions");
+
+    const completeBtn=document.createElement("button");
+    completeBtn.textContent="✓";
+    completeBtn.classList.add("complete-btn");
+    completeBtn.onclick=function(){
+        li.classList.toggle("completed");
+        saveTasks();
+    }
+
+    const deleteBtn=document.createElement("button");
+    deleteBtn.textContent="✕";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.onclick=function(){
+        li.remove();
+        saveTasks();
+    }
+
+    actions.appendChild(completeBtn);
+    actions.appendChild(deleteBtn);
+
+    li.appendChild(span);
+    li.appendChild(actions);
+
+    document.getElementById("taskList").appendChild(li);
+}
+
+function saveTasks(){
+    const tasks=[];
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        tasks.push({
+            text:li.querySelector("span").textContent,
+            completed:li.classList.contains("completed")
+        });
+    });
+    localStorage.setItem("proTasks",JSON.stringify(tasks));
+}
+
+function loadTasks(){
+    const tasks=JSON.parse(localStorage.getItem("proTasks"))||[];
+    tasks.forEach(task=>{
+        createTask(task.text,task.completed);
+    });
+}
+</script>
+
+</body>
+</html>
