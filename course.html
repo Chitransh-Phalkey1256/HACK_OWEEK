@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeMaster Pro Course</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* BODY */
+body{
+background:#0b1120;
+color:white;
+line-height:1.6;
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 50px;
+background:#020617;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav a{
+color:#22c55e;
+margin-left:20px;
+cursor:pointer;
+}
+
+/* PAGES */
+.page{
+display:none;
+}
+
+.active{
+display:block;
+animation:fade 0.5s;
+}
+
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* HERO */
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#022c22,#065f46);
+padding:20px;
+}
+
+.hero h1{
+font-size:3rem;
+margin-bottom:20px;
+}
+
+.hero p{
+max-width:700px;
+margin-bottom:20px;
+}
+
+.btn{
+padding:15px 35px;
+background:#22c55e;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-size:16px;
+}
+
+/* SECTION BIG */
+.section{
+padding:80px 60px;
+max-width:1100px;
+margin:auto;
+}
+
+.section h1{
+margin-bottom:20px;
+font-size:2.5rem;
+}
+
+/* FEATURE BLOCK */
+.feature-block{
+background:#1e293b;
+padding:40px;
+border-radius:15px;
+margin-bottom:25px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.feature-block:hover{
+background:#334155;
+transform:translateY(-5px);
+}
+
+/* MODULE LIST */
+.module-list{
+margin-top:20px;
+}
+
+.module-item{
+background:#1e293b;
+padding:25px;
+border-radius:10px;
+margin-bottom:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.module-item:hover{
+background:#334155;
+}
+
+/* CONTACT */
+.contact{
+background:#1e293b;
+padding:40px;
+border-radius:15px;
+}
+
+/* POPUP */
+#popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:#020617;
+padding:30px;
+border-radius:10px;
+width:350px;
+text-align:center;
+}
+
+.close{
+margin-top:15px;
+cursor:pointer;
+color:#22c55e;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.hero h1{font-size:2rem;}
+.section{padding:40px 20px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<h2>CodeMaster</h2>
+<div>
+<a onclick="showPage('home')">Home</a>
+<a onclick="showPage('features')">Features</a>
+<a onclick="showPage('modules')">Modules</a>
+<a onclick="showPage('contact')">Contact</a>
+</div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+<div class="hero">
+<h1>Master Web Development</h1>
+<p>Learn from scratch to advanced. Build real-world projects, gain practical experience, and become job-ready developer.</p>
+<button class="btn" onclick="showPage('modules')">Start Learning</button>
+</div>
+</div>
+
+<!-- FEATURES -->
+<div id="features" class="page">
+<div class="section">
+
+<h1>Why This Course?</h1>
+
+<div class="feature-block" onclick="openPopup('You will learn step-by-step from beginner to advanced with proper guidance and structure.')">
+<h2>🚀 Structured Learning Path</h2>
+<p>We provide a clear roadmap so you never feel lost during your journey.</p>
+</div>
+
+<div class="feature-block" onclick="openPopup('You will build multiple projects like portfolio, weather app, and landing pages.')">
+<h2>💻 Real World Projects</h2>
+<p>Practice by building projects that you can showcase in your portfolio.</p>
+</div>
+
+<div class="feature-block" onclick="openPopup('Get guidance for resume, internships and interviews.')">
+<h2>🎯 Career Support</h2>
+<p>We help you prepare for internships and real job opportunities.</p>
+</div>
+
+</div>
+</div>
+
+<!-- MODULES -->
+<div id="modules" class="page">
+<div class="section">
+
+<h1>Course Curriculum</h1>
+
+<div class="module-list">
+
+<div class="module-item" onclick="openPopup('HTML basics, forms, semantic tags, SEO fundamentals')">
+<h3>📘 HTML Fundamentals</h3>
+<p>Build structure of websites using HTML.</p>
+</div>
+
+<div class="module-item" onclick="openPopup('CSS Flexbox, Grid, animations, responsive design')">
+<h3>🎨 CSS & Design</h3>
+<p>Make websites beautiful and responsive.</p>
+</div>
+
+<div class="module-item" onclick="openPopup('JavaScript logic, DOM, events, real functionality')">
+<h3>⚡ JavaScript</h3>
+<p>Add interactivity and logic to your apps.</p>
+</div>
+
+<div class="module-item" onclick="openPopup('Build portfolio, weather app, deploy projects')">
+<h3>🚀 Projects & Deployment</h3>
+<p>Become job-ready with real applications.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+<div class="section">
+
+<h1>Contact Us</h1>
+
+<div class="contact">
+<p><strong>Email:</strong> support@codemaster.com</p>
+<p><strong>Phone:</strong> +91 9876543210</p>
+<p><strong>Location:</strong> Nagpur, India</p>
+<p><strong>Support Hours:</strong> 9 AM – 6 PM</p>
+
+<br>
+<p>Feel free to reach out for any queries related to course, career guidance, or enrollment.</p>
+</div>
+
+</div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+<div class="popup-box">
+<p id="popup-text"></p>
+<div class="close" onclick="closePopup()">Close</div>
+</div>
+</div>
+
+<script>
+
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+}
+
+function openPopup(text){
+document.getElementById('popup-text').innerText=text;
+document.getElementById('popup').style.display='flex';
+}
+
+function closePopup(){
+document.getElementById('popup').style.display='none';
+}
+
+</script>
+
+</body>
+</html>
