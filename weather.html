@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Weather Pro UI</title>
+<title>Weather Ultra Pro</title>
 
 <style>
 
-/* Background */
+/* Background Animation */
 body{
 margin:0;
 font-family:'Segoe UI';
-background:linear-gradient(135deg,#141e30,#243b55);
 color:white;
-overflow-x:hidden;
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c92d2);
+background-size:400% 400%;
+animation:gradient 10s ease infinite;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* Navbar */
@@ -22,146 +29,141 @@ justify-content:space-between;
 padding:15px 40px;
 background:rgba(0,0,0,0.4);
 backdrop-filter:blur(10px);
-position:sticky;
-top:0;
-}
-
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
-
-nav li{
-cursor:pointer;
-transition:0.3s;
-}
-
-nav li:hover{
-color:#ffcc70;
 }
 
 /* Pages */
 .page{
 display:none;
-padding:40px;
+padding:30px;
 text-align:center;
 }
 
 .active{
 display:block;
-animation:fade 0.5s ease;
+animation:fade 0.6s ease;
 }
 
 @keyframes fade{
-from{opacity:0; transform:translateY(10px);}
+from{opacity:0; transform:translateY(20px);}
 to{opacity:1; transform:translateY(0);}
-}
-
-/* Hero */
-.hero{
-height:80vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-}
-
-.hero h1{
-font-size:45px;
-}
-
-.btn{
-padding:12px 30px;
-background:linear-gradient(45deg,#ff7e5f,#feb47b);
-border-radius:30px;
-cursor:pointer;
-margin-top:20px;
-font-weight:bold;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.05);
 }
 
 /* Cards */
 .card-container{
 display:flex;
 justify-content:center;
-gap:30px;
+gap:25px;
 flex-wrap:wrap;
-margin-top:30px;
+margin-top:50px;
 }
 
 .card{
-background:rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.1);
 backdrop-filter:blur(15px);
 padding:30px;
 border-radius:20px;
 width:220px;
 cursor:pointer;
 transition:0.4s;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
 .card:hover{
-transform:translateY(-10px) scale(1.05);
+transform:translateY(-10px) scale(1.08);
+box-shadow:0 0 30px #00c6ff;
 }
 
 /* Weather Box */
 .weather-box{
-background:rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.1);
 backdrop-filter:blur(20px);
-padding:50px;
+padding:40px;
 border-radius:25px;
-display:inline-block;
-margin-top:40px;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
+margin-top:30px;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-.weather-box h1{
-font-size:34px;
-}
-
+/* Temperature Glow */
 .temp{
-font-size:65px;
-margin:10px 0;
+font-size:70px;
 font-weight:bold;
+text-shadow:0 0 20px #00c6ff;
 }
 
+/* Details */
 .details{
-display:flex;
-justify-content:space-around;
-margin-top:25px;
-gap:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:20px;
 }
 
 .detail{
-font-size:14px;
 background:rgba(0,0,0,0.3);
-padding:10px;
+padding:12px;
 border-radius:10px;
+transition:0.3s;
+}
+
+.detail:hover{
+background:rgba(0,0,0,0.6);
+transform:scale(1.05);
+}
+
+/* Hourly */
+.hourly{
+display:flex;
+overflow-x:auto;
+gap:12px;
+margin-top:20px;
+padding-bottom:10px;
+}
+
+.hour{
+background:rgba(255,255,255,0.1);
+padding:12px;
+border-radius:12px;
+min-width:90px;
+transition:0.3s;
+}
+
+.hour:hover{
+transform:scale(1.1);
+background:rgba(255,255,255,0.2);
 }
 
 /* Back Button */
 .back{
-margin-top:30px;
+margin-top:20px;
 display:inline-block;
 padding:10px 25px;
-background:#ff7e5f;
+background:#00c6ff;
 border-radius:25px;
 cursor:pointer;
 transition:0.3s;
 }
 
 .back:hover{
+background:#0072ff;
 transform:scale(1.05);
 }
 
-/* Icons */
+/* Time */
+#time{
+margin-top:10px;
+font-size:16px;
+opacity:0.8;
+}
+
+/* Floating Icon Animation */
 .icon{
-font-size:45px;
+font-size:50px;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
 
 </style>
@@ -169,106 +171,134 @@ font-size:45px;
 
 <body>
 
-<!-- Navbar -->
 <nav>
-<h2>🌤 WeatherPro</h2>
-<ul>
-<li onclick="showPage('home')">Home</li>
-<li onclick="showPage('cities')">Cities</li>
-</ul>
+<h2>🌤 Weather Ultra</h2>
 </nav>
 
 <!-- HOME -->
 <div id="home" class="page active">
-<div class="hero">
-<h1>Weather Dashboard</h1>
-<p>Beautiful Static Weather UI</p>
-<div class="btn" onclick="showPage('cities')">Explore Now</div>
-</div>
-</div>
-
-<!-- CITY LIST -->
-<div id="cities" class="page">
 <h1>Select City</h1>
 
 <div class="card-container">
-<div class="card" onclick="showPage('delhi')">
-<div class="icon">☀</div>
-<h2>Delhi</h2>
+<div class="card" onclick="showPage('delhi')">Delhi</div>
+<div class="card" onclick="showPage('mumbai')">Mumbai</div>
+<div class="card" onclick="showPage('nagpur')">Nagpur</div>
 </div>
-
-<div class="card" onclick="showPage('mumbai')">
-<div class="icon">☁</div>
-<h2>Mumbai</h2>
-</div>
-
-<div class="card" onclick="showPage('nagpur')">
-<div class="icon">🔥</div>
-<h2>Nagpur</h2>
-</div>
-</div>
-
 </div>
 
 <!-- DELHI -->
 <div id="delhi" class="page">
-<div class="weather-box">
 <h1>Delhi</h1>
-<div class="icon">☀</div>
-<div class="temp">32°C</div>
+<div id="time"></div>
+
+<div class="weather-box">
+<div class="icon">🌤️</div>
+<div class="temp">35°C</div>
 
 <div class="details">
-<div class="detail">Humidity<br>45%</div>
-<div class="detail">Wind<br>10 km/h</div>
-<div class="detail">Condition<br>Sunny</div>
+<div class="detail">Min: 28°C</div>
+<div class="detail">Max: 36°C</div>
+<div class="detail">Humidity: 50%</div>
+<div class="detail">Pressure: 1012 hPa</div>
+<div class="detail">Wind: 12 km/h NW</div>
+<div class="detail">UV Index: High</div>
+<div class="detail">Sunrise: 6:20 AM</div>
+<div class="detail">Sunset: 6:45 PM</div>
 </div>
 
-<div class="back" onclick="showPage('cities')">⬅ Back</div>
+<h3>Hourly Forecast</h3>
+<div class="hourly">
+<div class="hour">10AM<br>32°</div>
+<div class="hour">12PM<br>34°</div>
+<div class="hour">2PM<br>35°</div>
+<div class="hour">4PM<br>33°</div>
+<div class="hour">6PM<br>30°</div>
+</div>
+
+<div class="back" onclick="showPage('home')">⬅ Back</div>
 </div>
 </div>
 
 <!-- MUMBAI -->
 <div id="mumbai" class="page">
-<div class="weather-box">
 <h1>Mumbai</h1>
-<div class="icon">☁</div>
-<div class="temp">30°C</div>
+<div id="time"></div>
+
+<div class="weather-box">
+<div class="icon">🌧️</div>
+<div class="temp">28°C</div>
 
 <div class="details">
-<div class="detail">Humidity<br>70%</div>
-<div class="detail">Wind<br>8 km/h</div>
-<div class="detail">Condition<br>Cloudy</div>
+<div class="detail">Min: 26°C</div>
+<div class="detail">Max: 30°C</div>
+<div class="detail">Humidity: 75%</div>
+<div class="detail">Pressure: 1008 hPa</div>
+<div class="detail">Wind: 15 km/h SW</div>
+<div class="detail">UV Index: Medium</div>
+<div class="detail">Sunrise: 6:30 AM</div>
+<div class="detail">Sunset: 6:50 PM</div>
 </div>
 
-<div class="back" onclick="showPage('cities')">⬅ Back</div>
+<h3>Hourly Forecast</h3>
+<div class="hourly">
+<div class="hour">10AM<br>27°</div>
+<div class="hour">12PM<br>28°</div>
+<div class="hour">2PM<br>29°</div>
+<div class="hour">4PM<br>28°</div>
+<div class="hour">6PM<br>27°</div>
+</div>
+
+<div class="back" onclick="showPage('home')">⬅ Back</div>
 </div>
 </div>
 
 <!-- NAGPUR -->
 <div id="nagpur" class="page">
-<div class="weather-box">
 <h1>Nagpur</h1>
-<div class="icon">🔥</div>
-<div class="temp">35°C</div>
+<div id="time"></div>
+
+<div class="weather-box">
+<div class="icon">☀️</div>
+<div class="temp">32°C</div>
 
 <div class="details">
-<div class="detail">Humidity<br>30%</div>
-<div class="detail">Wind<br>12 km/h</div>
-<div class="detail">Condition<br>Hot</div>
+<div class="detail">Min: 29°C</div>
+<div class="detail">Max: 35°C</div>
+<div class="detail">Humidity: 40%</div>
+<div class="detail">Pressure: 1010 hPa</div>
+<div class="detail">Wind: 10 km/h NE</div>
+<div class="detail">UV Index: High</div>
+<div class="detail">Sunrise: 6:10 AM</div>
+<div class="detail">Sunset: 6:40 PM</div>
 </div>
 
-<div class="back" onclick="showPage('cities')">⬅ Back</div>
+<h3>Hourly Forecast</h3>
+<div class="hourly">
+<div class="hour">10AM<br>30°</div>
+<div class="hour">12PM<br>32°</div>
+<div class="hour">2PM<br>34°</div>
+<div class="hour">4PM<br>33°</div>
+<div class="hour">6PM<br>31°</div>
+</div>
+
+<div class="back" onclick="showPage('home')">⬅ Back</div>
 </div>
 </div>
 
 <script>
 
-/* Page Switching */
 function showPage(id){
-let pages=document.querySelectorAll(".page");
-pages.forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
+
+/* Live Time */
+setInterval(()=>{
+let now=new Date();
+document.querySelectorAll("#time").forEach(t=>{
+t.innerHTML="🕒 "+now.toLocaleTimeString();
+});
+},1000);
 
 </script>
 
