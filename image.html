@@ -1,42 +1,87 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Photography Gallery</title>
+<meta charset="UTF-8">
+<title>Chitransh Photography</title>
 
 <style>
 
 body{
-font-family: Arial;
-background:#111;
-text-align:center;
-color:white;
 margin:0;
+font-family:'Segoe UI';
+background:#111;
+color:white;
 }
 
-h1{
-margin:20px;
+/* Navbar */
+nav{
+display:flex;
+justify-content:space-between;
+padding:15px 40px;
+background:black;
 }
 
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+cursor:pointer;
+}
+
+/* Pages */
+.page{
+display:none;
+padding:40px;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* Hero */
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+.btn{
+padding:10px 20px;
+background:#ff4c60;
+color:white;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* Gallery */
 .gallery{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:15px;
-width:70%;
-margin:auto;
 }
 
 .gallery img{
 width:100%;
-cursor:pointer;
 border-radius:10px;
+cursor:pointer;
 transition:0.3s;
 }
 
 .gallery img:hover{
-transform:scale(1.05);
+transform:scale(1.08);
 }
 
+/* Lightbox */
 #lightbox{
 display:none;
 position:fixed;
@@ -44,7 +89,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.95);
 justify-content:center;
 align-items:center;
 }
@@ -60,57 +105,103 @@ position:absolute;
 top:20px;
 right:40px;
 font-size:40px;
-color:white;
 cursor:pointer;
+}
+
+/* About */
+.about{
+max-width:800px;
+margin:auto;
+line-height:1.6;
 }
 
 </style>
 </head>
 
-
 <body>
 
-<h1>My Photography Gallery</h1>
+<!-- Navbar -->
+<nav>
+<h2>📸 Chitransh</h2>
+<ul>
+<li onclick="showPage('home')">Home</li>
+<li onclick="showPage('gallery')">Gallery</li>
+<li onclick="showPage('about')">About</li>
+</ul>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+<div class="hero">
+<h1>Capturing Moments</h1>
+<p>Professional Photography Portfolio</p>
+<div class="btn" onclick="showPage('gallery')">Explore Gallery</div>
+</div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="page">
+<h1>My Work</h1>
 
 <div class="gallery">
 
-<img src="https://picsum.photos/id/1015/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1016/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1018/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1020/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1024/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1025/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1035/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1038/300/200" onclick="openLightbox(this)">
-<img src="https://picsum.photos/id/1040/300/200" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1015/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1016/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1018/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1020/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1024/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1025/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1035/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1038/400/300" onclick="openLightbox(this)">
+<img src="https://picsum.photos/id/1040/400/300" onclick="openLightbox(this)">
 
 </div>
+</div>
 
-<div id="lightbox">
-<span class="close" onclick="closeLightbox()">×</span>
+<!-- ABOUT -->
+<div id="about" class="page">
+<h1>About Me</h1>
+<div class="about">
+<p>
+Hi, I'm Chitransh — a passionate photographer who loves capturing nature,
+people, and real-life moments. My goal is to turn memories into art.
+</p>
+</div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+<span class="close">&times;</span>
 <img id="lightbox-img">
 </div>
 
 <script>
 
+/* Page Switch */
+function showPage(pageId){
+let pages = document.querySelectorAll(".page");
+pages.forEach(p => p.classList.remove("active"));
+document.getElementById(pageId).classList.add("active");
+}
+
+/* Lightbox */
 function openLightbox(img){
-
-let lightbox = document.getElementById("lightbox")
-let lightboxImg = document.getElementById("lightbox-img")
-
-lightbox.style.display = "flex"
-lightboxImg.src = img.src
-
+document.getElementById("lightbox").style.display="flex";
+document.getElementById("lightbox-img").src=img.src;
 }
 
 function closeLightbox(){
-
-document.getElementById("lightbox").style.display = "none"
-
+document.getElementById("lightbox").style.display="none";
 }
+
+/* ESC close */
+document.addEventListener("keydown", function(e){
+if(e.key === "Escape"){
+closeLightbox();
+}
+});
 
 </script>
 
 </body>
 </html>
-```
