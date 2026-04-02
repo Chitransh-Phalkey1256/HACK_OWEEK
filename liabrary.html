@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Library</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+  margin:0;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-around;
+  background:#020617;
+  padding:15px;
+}
+nav button{
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+
+/* PAGE */
+.page{display:none;padding:20px;text-align:center;}
+.active{display:block;}
+
+/* HERO IMAGE */
+.hero-img{
+  width:90%;
+  max-width:600px;
+  border-radius:10px;
+  margin-top:20px;
+}
+
+/* CARD STYLE */
+.card{
+  background:#1e293b;
+  padding:15px;
+  margin:15px auto;
+  border-radius:10px;
+  max-width:600px;
+}
+
+/* INPUTS */
+input,select,button{
+  padding:10px;
+  margin:5px;
+  border-radius:6px;
+  border:none;
+}
+
+button{
+  background:#3b82f6;
+  color:white;
+  cursor:pointer;
+}
+button:active{transform:scale(0.95);}
+
+.book{
+  background:#1e293b;
+  padding:10px;
+  margin:10px;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('info')">Library Info</button>
+  <button onclick="showPage('catalogue')">Catalogue</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <h1>📚 Smart Library</h1>
+  <p>Manage books efficiently with search, categories & limits.</p>
+
+  <!-- IMAGE -->
+  <img class="hero-img" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Library">
+
+  <div class="card">
+    <h3>Welcome to Digital Library</h3>
+    <p>
+      Explore, manage and organize your books with ease.  
+      Designed for students and institutions.
+    </p>
+  </div>
+</div>
+
+<!-- INFO -->
+<div id="info" class="page">
+  <h2>📖 Library Information</h2>
+
+  <div class="card">
+    <h3>📜 Rules</h3>
+    <p>
+      • Maintain silence 🤫<br>
+      • Return books on time ⏳<br>
+      • Handle books carefully 📚<br>
+      • No food inside 🚫
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>📍 About Institute</h3>
+    <p>
+      This library system is designed for students of  
+      <b>Symbiosis Institute of Technology</b>.  
+      It helps manage and organize books efficiently.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>📞 Contact</h3>
+    <p>
+      Email: library@symbiosis.edu <br>
+      Phone: +91 9876543210
+    </p>
+  </div>
+</div>
+
+<!-- CATALOGUE -->
+<div id="catalogue" class="page">
+
+  <h2>Library Catalogue</h2>
+
+  <!-- ADD -->
+  <input type="text" id="title" placeholder="Book Title">
+  <input type="text" id="author" placeholder="Author">
+
+  <select id="category">
+    <option>Programming</option>
+    <option>Science</option>
+    <option>Fiction</option>
+  </select>
+
+  <button onclick="addBook()">Add</button>
+
+  <br>
+
+  <!-- SEARCH -->
+  <input type="text" id="search" placeholder="Search Title">
+  <button onclick="searchBook()">Search</button>
+
+  <!-- FILTER -->
+  <select onchange="filterCategory(this.value)">
+    <option value="all">All Categories</option>
+    <option>Programming</option>
+    <option>Science</option>
+    <option>Fiction</option>
+  </select>
+
+  <!-- REMOVE -->
+  <input type="text" id="removeTitle" placeholder="Remove Title">
+  <button onclick="removeBook()">Remove</button>
+
+  <h3 id="status"></h3>
+
+  <div id="bookList"></div>
+</div>
+
+<script>
+const capacity = 8;
+let books = [];
+
+/* PAGE SWITCH */
+function showPage(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
+}
+
+/* DISPLAY */
+function displayBooks(data = books){
+  let list = document.getElementById("bookList");
+  list.innerHTML = "";
+
+  data.forEach(b=>{
+    list.innerHTML += `
+    <div class="book">
+      <b>${b.title}</b> by ${b.author} <br>
+      Category: ${b.category}
+    </div>`;
+  });
+}
+
+/* ADD */
+function addBook(){
+  let title = titleInput.value.trim();
+  let author = authorInput.value.trim();
+  let category = categoryInput.value;
+
+  if(!title || !author){
+    status("Fill all fields ❗");
+    return;
+  }
+
+  if(books.length >= capacity){
+    status("Library Full 🚫");
+    return;
+  }
+
+  books.push({title, author, category});
+  status("Added ✅");
+  displayBooks();
+}
+
+/* SEARCH */
+function searchBook(){
+  let q = search.value.toLowerCase();
+  let result = books.filter(b=>b.title.toLowerCase().includes(q));
+  displayBooks(result);
+  status("Search Done 🔍");
+}
+
+/* FILTER */
+function filterCategory(cat){
+  if(cat==="all"){
+    displayBooks();
+  } else {
+    displayBooks(books.filter(b=>b.category===cat));
+  }
+}
+
+/* REMOVE */
+function removeBook(){
+  let t = removeTitle.value.toLowerCase();
+  let index = books.findIndex(b=>b.title.toLowerCase()===t);
+
+  if(index===-1){
+    status("Not Found ❌");
+    return;
+  }
+
+  books.splice(index,1);
+  displayBooks();
+  status("Removed 🗑️");
+}
+
+/* STATUS */
+function status(msg){
+  document.getElementById("status").innerText = msg;
+}
+
+/* INPUT REFERENCES */
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const categoryInput = document.getElementById("category");
+</script>
+
+</body>
+</html>
