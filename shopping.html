@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Shopping Mall</title>
+
+<style>
+
+/* BACKGROUND + BUBBLES */
+body{
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  color:white;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  overflow-x:hidden;
+}
+
+/* BUBBLE ANIMATION */
+.bubbles{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+.bubbles span{
+  position:absolute;
+  bottom:-50px;
+  width:20px;
+  height:20px;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  animation:rise 10s linear infinite;
+}
+@keyframes rise{
+  0%{transform:translateY(0) scale(1);}
+  100%{transform:translateY(-1000px) scale(0.5);}
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-around;
+  padding:15px;
+  backdrop-filter: blur(10px);
+  background:rgba(0,0,0,0.3);
+}
+nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s;
+}
+nav button:hover{
+  color:#00f2fe;
+}
+
+/* PAGES */
+.page{display:none;padding:20px;text-align:center;}
+.active{display:block;}
+
+/* CARD GLASS */
+.card{
+  margin:20px auto;
+  padding:20px;
+  max-width:600px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  box-shadow:0 0 20px rgba(0,255,255,0.2);
+}
+
+/* IMAGE */
+.hero{
+  width:90%;
+  max-width:650px;
+  border-radius:15px;
+  box-shadow:0 0 25px rgba(0,0,0,0.5);
+}
+
+/* INPUT */
+input,select,button{
+  padding:10px;
+  margin:8px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+}
+
+/* BUTTON */
+button{
+  background:linear-gradient(45deg,#00f2fe,#4facfe);
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:active{
+  transform:scale(0.95);
+}
+
+/* ITEM */
+.item{
+  background:rgba(0,0,0,0.4);
+  margin:10px;
+  padding:10px;
+  border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BUBBLES -->
+<div class="bubbles">
+  <span style="left:10%;animation-duration:8s;"></span>
+  <span style="left:20%;animation-duration:12s;"></span>
+  <span style="left:40%;animation-duration:10s;"></span>
+  <span style="left:60%;animation-duration:14s;"></span>
+  <span style="left:80%;animation-duration:9s;"></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('info')">Mall Info</button>
+  <button onclick="showPage('cart')">Cart</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <h1>🛍️ Smart Shopping Mall</h1>
+
+  <img class="hero" src="https://images.unsplash.com/photo-1519567241046-7f570eee3ce6">
+
+  <div class="card">
+    <h3>Welcome to Future Shopping</h3>
+    <p>
+      Experience a modern digital shopping cart powered by advanced data structures.
+      Add, remove and manage your items dynamically like real-world e-commerce platforms.
+    </p>
+  </div>
+</div>
+
+<!-- INFO -->
+<div id="info" class="page">
+
+  <h2>🏬 About Our Mall</h2>
+
+  <div class="card">
+    <p>
+      Our Smart Shopping Mall is designed to replicate real-world shopping experiences
+      in a digital environment. It features multiple categories including fashion,
+      electronics, groceries, and lifestyle products.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Facilities</h3>
+    <p>
+      ✔ 24/7 Online Shopping<br>
+      ✔ Multiple Categories<br>
+      ✔ Fast Checkout System<br>
+      ✔ Smart Cart Management
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Contact</h3>
+    <p>Email: support@smartmall.com <br> Phone: +91 9876543210</p>
+  </div>
+
+</div>
+
+<!-- CART -->
+<div id="cart" class="page">
+
+  <h2>🛒 Your Cart</h2>
+
+  <input type="text" id="name" placeholder="Item Name">
+  <input type="number" id="price" placeholder="Price">
+
+  <select id="position">
+    <option value="head">Insert Head</option>
+    <option value="tail">Insert Tail</option>
+  </select>
+
+  <button onclick="addItem()">Add Item</button>
+
+  <br>
+
+  <input type="number" id="removeId" placeholder="Remove by ID">
+  <button onclick="removeItem()">Remove</button>
+
+  <h3 id="status"></h3>
+
+  <div id="cartList"></div>
+</div>
+
+<script>
+
+/* PAGE */
+function showPage(p){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  document.getElementById(p).classList.add("active");
+}
+
+/* LINKED LIST */
+class Node{
+  constructor(id,name,price){
+    this.id=id;
+    this.name=name;
+    this.price=price;
+    this.next=null;
+  }
+}
+
+class LinkedList{
+  constructor(){
+    this.head=null;
+    this.id=1;
+  }
+
+  insertHead(name,price){
+    let n=new Node(this.id++,name,price);
+    n.next=this.head;
+    this.head=n;
+  }
+
+  insertTail(name,price){
+    let n=new Node(this.id++,name,price);
+    if(!this.head){this.head=n;return;}
+    let t=this.head;
+    while(t.next) t=t.next;
+    t.next=n;
+  }
+
+  remove(id){
+    if(!this.head) return false;
+    if(this.head.id==id){
+      this.head=this.head.next;
+      return true;
+    }
+    let t=this.head;
+    while(t.next && t.next.id!=id) t=t.next;
+    if(t.next){
+      t.next=t.next.next;
+      return true;
+    }
+    return false;
+  }
+
+  get(){
+    let arr=[],t=this.head;
+    while(t){arr.push(t);t=t.next;}
+    return arr;
+  }
+}
+
+let cart=new LinkedList();
+
+/* DISPLAY */
+function display(){
+  let data=cart.get();
+  let html="";
+  data.forEach(i=>{
+    html+=`<div class="item">ID:${i.id} | ${i.name} - ₹${i.price}</div>`;
+  });
+  document.getElementById("cartList").innerHTML=html;
+}
+
+/* ADD */
+function addItem(){
+  let n=name.value;
+  let p=price.value;
+  let pos=position.value;
+
+  if(!n||!p){
+    status("Fill all fields ❗");
+    return;
+  }
+
+  if(pos==="head") cart.insertHead(n,p);
+  else cart.insertTail(n,p);
+
+  status("Added ✅");
+  display();
+}
+
+/* REMOVE */
+function removeItem(){
+  let id=removeId.value;
+  if(cart.remove(id)) status("Removed 🗑️");
+  else status("Not Found ❌");
+  display();
+}
+
+/* STATUS */
+function status(msg){
+  document.getElementById("status").innerText=msg;
+}
+
+</script>
+
+</body>
+</html>
